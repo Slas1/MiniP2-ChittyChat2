@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package chittychatserver;
+
+option go_package = "MiniP2-ChittyChat2/chittychatserver";
+
+message FromClient {
+
+    int32 ID = 1;
+    string body = 2;
+    int32 time = 3;
+}
+
+message FromServer {
+    int32 ToID = 1;
+    int32 ID = 2;
+    string body = 3;
+    int32 time = 4;
+}
+
+service Services {
+    rpc JoinServer (FromClient) returns (FromServer);
+    rpc ChatService(stream FromClient) returns (stream FromServer){};
+    rpc LeaveServer (FromClient) returns (FromServer);
+}
